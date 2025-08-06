@@ -1,0 +1,59 @@
+# Ambiente virtual
+venv/
+.env
+
+# Arquivos Python compilados
+__pycache__/
+*.py[cod]
+*$py.class
+
+# SQLite (caso esteja usando)
+db.sqlite3
+
+# Arquivos do Django
+*.log
+*.pot
+*.pyc
+
+# VS Code
+.vscode/
+
+# MacOS e Linux
+.DS_Store
+
+# PyCharm
+.idea/
+
+# Arquivos de migração temporários
+*.bak
+*.swp
+*.swo
+
+# Pip
+pip-log.txt
+
+# Arquivos de testes temporários
+htmlcov/
+.coverage
+
+# mypy
+.mypy_cache/
+
+# Test output
+junitxml/
+test-results/
+
+# coverage
+coverage.xml
+.cache
+
+# Docker (se usar)
+*.pid
+
+# Media/static gerados
+/media/
+/staticfiles/
+
+# Config de sistema
+Thumbs.db
+ehthumbs.db

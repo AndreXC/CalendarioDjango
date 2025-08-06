@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário Pro com Drag & Drop</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-left">
+                <button id="prev-btn" class="nav-btn" aria-label="Anterior"><i data-lucide="chevron-left"></i></button>
+                <h1 id="current-period-display"></h1>
+                <button id="next-btn" class="nav-btn" aria-label="Próximo"><i data-lucide="chevron-right"></i></button>
+                <button id="today-btn" class="today-btn">Hoje</button>
+            </div>
+            <div class="header-center">
+                <div class="view-switcher">
+                    <button class="view-btn active" data-view="month">Mês</button>
+                    <button class="view-btn" data-view="week">Semana</button>
+                    <button class="view-btn" data-view="agenda">Agenda</button>
+                </div>
+            </div>
+            <div class="header-right">
+                <!-- <span class="user-welcome">Olá, {{ user.username }}!</span> -->
+                <div class="filter-wrapper"><i data-lucide="user" class="filter-icon"></i><input type="text"
+                        id="creator-filter-input" placeholder="Filtrar criador..."></div>
+                <div class="search-wrapper"><i data-lucide="search" class="search-icon"></i><input type="text"
+                        id="search-input" placeholder="Buscar evento..."></div>
+                <button id="theme-toggle-btn" class="theme-btn" aria-label="Alternar tema"><i data-lucide="sun"
+                        class="sun-icon"></i><i data-lucide="moon" class="moon-icon"></i></button>
+
+                <form action="{% url 'logout' %}" method="post" class="logout-form">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-btn">
+                        <i data-lucide="log-out"></i>
+                        <span>Sair</span>
+                    </button>
+                </form>
+            </div>
+        </header>
+
+        <main class="view-container" id="view-container"></main>
+
+        <footer class="calendar-legend">
+            <div class="legend-item"><span class="legend-icon">📌</span> Evento de Hoje</div>
+            <div class="legend-item"><span class="legend-icon">✅</span> Realizado</div>
+            <div class="legend-item"><span class="legend-icon">⌛</span> Expirado</div>
+            <div class="legend-item"><span class="legend-icon"
+                    style="background-color: var(--accent-color); border-radius: 4px;"></span> Pendente</div>
+        </footer>
+
+        <button id="add-event-fab" class="fab" aria-label="Adicionar novo evento"><i data-lucide="plus"></i></button>
+    </div>
+
+    <div id="event-modal" class="modal-overlay">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h2 id="modal-title">Adicionar Evento</h2>
+                <button id="close-modal-btn" class="close-btn" aria-label="Fechar modal"><i
+                        data-lucide="x"></i></button>
+            </header>
+            <form id="event-form">
+                <input type="hidden" id="event-id">
+                <div class="form-field">
+                    <input type="text" id="event-name" name="event-name" placeholder=" " required>
+                    <label for="event-name">Nome do Evento</label>
+                </div>
+                <div class="form-field">
+                    <input type="text" id="event-creator" name="event-creator" placeholder=" " required>
+                    <label for="event-creator">Nome do Criador</label>
+                </div>
+                <div class="form-field">
+                    <input type="datetime-local" id="event-date" name="event-date" required>
+                    <label for="event-date">Data e Hora</label>
+                </div>
+                <div class="form-field">
+                    <textarea id="event-description" name="event-description" placeholder=" " rows="3"></textarea>
+                    <label for="event-description">Descrição (Opcional)</label>
+                </div>
+                <div class="form-group form-group-inline">
+                    <div class="color-picker-wrapper"><label for="event-color">Cor</label><input type="color"
+                            id="event-color" value="#3b82f6"></div>
+                    <div class="checkbox-wrapper"><input type="checkbox" id="event-completed-checkbox"><label
+                            for="event-completed-checkbox">Realizado</label></div>
+                </div>
+                <footer class="modal-footer">
+                    <button type="button" id="delete-event-btn" class="delete-btn"><i data-lucide="trash-2"></i>
+                        Excluir</button>
+                    <button type="submit" id="save-event-btn" class="save-btn">Salvar</button>
+                </footer>
+            </form>
+        </div>
+    </div>
+
+    <div id="confirm-delete-modal" class="modal-overlay">
+        <div class="modal-content confirm-modal">
+            <div class="modal-icon-wrapper"><i data-lucide="alert-triangle"></i></div>
+            <h2>Confirmar Exclusão</h2>
+            <p>Você tem certeza que deseja excluir este evento? Esta ação não pode ser desfeita.</p>
+            <div class="modal-footer">
+                <button id="cancel-delete-btn" class="btn-secondary">Cancelar</button>
+                <button id="confirm-delete-action-btn" class="delete-btn">Sim, Excluir</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="tooltip" class="tooltip"></div>
+    <div id="toast" class="toast"></div>
+    <audio id="notification-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-notification-947.mp3"
+        preload="auto"></audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/auth/authDjango.js' %}"></script>
+</body>
+
+</html>

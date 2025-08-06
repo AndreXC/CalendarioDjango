@@ -1,0 +1,244 @@
+/* --- Estilos Globais e Variáveis (Coerência com o projeto) --- */
+:root {
+    --bg-primary: #f9fafb;
+    --bg-secondary: #ffffff;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --border-color: #e5e7eb;
+    --accent-color: #3b82f6;
+    --accent-color-dark: #2563eb;
+    --red-color: #ef4444;
+    --shadow-color: rgba(0, 0, 0, 0.05);
+    --font-family: 'Inter', sans-serif;
+}
+
+[data-theme="dark"] {
+    --bg-primary: #111827;
+    --bg-secondary: #1f2937;
+    --text-primary: #f9fafb;
+    --text-secondary: #9ca3af;
+    --border-color: #374151;
+    --accent-color: #60a5fa;
+    --accent-color-dark: #3b82f6;
+    --red-color: #f87171;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* --- Layout Principal da Página de Autenticação --- */
+body.auth-page {
+    font-family: var(--font-family);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 420px;
+}
+
+.auth-form {
+    background-color: var(--bg-secondary);
+    padding: 2.5rem 2rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -2px var(--shadow-color);
+    transition: all 0.3s ease;
+}
+
+.auth-form h2 {
+    text-align: center;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 2.5rem;
+    color: var(--text-primary);
+}
+
+.auth-form .form-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+}
+
+/* --- Campos de Formulário com Efeito "Floating Label" --- */
+.form-field {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.form-field input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    background-color: var(--bg-primary);
+    /* Fundo um pouco diferente para destaque */
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-field label {
+    position: absolute;
+    left: 0.8rem;
+    top: 0.8rem;
+    color: var(--text-secondary);
+    pointer-events: none;
+    transition: all 0.2s ease;
+    background-color: var(--bg-primary);
+    padding: 0 0.25rem;
+}
+
+/* Animação do Label */
+.form-field input:focus+label,
+.form-field input:not(:placeholder-shown)+label {
+    top: -0.7rem;
+    left: 0.6rem;
+    font-size: 0.75rem;
+    color: var(--accent-color);
+}
+
+.form-field input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* --- Botão Principal --- */
+.auth-btn {
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+    background-color: var(--accent-color);
+    color: #fff;
+    margin-top: 1rem;
+}
+
+.auth-btn:hover {
+    background-color: var(--accent-color-dark);
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+}
+
+.auth-btn:active {
+    transform: scale(0.98);
+}
+
+/* --- Links e Feedback de Erro --- */
+.auth-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--text-secondary);
+}
+
+.auth-link a {
+    color: var(--accent-color);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.auth-link a:hover {
+    color: var(--accent-color-dark);
+    text-decoration: underline;
+}
+
+.error-message {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--red-color);
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* --- Estilos para o Formulário de Registro Padrão do Django --- */
+
+.auth-form p {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.auth-form label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+/* Estiliza todos os inputs gerados pelo Django */
+.auth-form input[type="text"],
+.auth-form input[type="email"],
+.auth-form input[type="password"] {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* Estiliza textos de ajuda (ex: regras de senha) */
+.auth-form .helptext {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+    display: none;
+    /* Esconde por padrão */
+}
+
+/* Estiliza a lista de erros de validação */
+.auth-form .errorlist {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+    color: var(--red-color);
+    font-size: 0.9rem;
+}
+
+/* Estiliza o botão que você já tem */
+.auth-form .save-btn {
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+    background-color: var(--accent-color);
+    color: #fff;
+    margin-top: 1rem;
+}
+
+.auth-form .save-btn:hover {
+    background-color: var(--accent-color-dark);
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+}
