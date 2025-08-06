@@ -4,6 +4,8 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from datetime import timedelta
 from EventsApp.models import Event 
+from dotenv import load_dotenv
+import os
 
 def format_time_remaining(time_delta):
     """Converte um timedelta em uma string amigável."""
@@ -36,9 +38,11 @@ class Command(BaseCommand):
 
         self.stdout.write(f"Eventos encontrados: {upcoming_events.count()}")
         
+        load_dotenv()
+        
         recipient_list =[
-            'andremartinsdias2019@gmail.com',  
-            'Raquelhmachado@outlook.com'
+            os.getenv('EMAIL_Andre'),
+            os.getenv('EMAIL_Raquel'),
         ]
 
         for event in upcoming_events:
@@ -48,7 +52,7 @@ class Command(BaseCommand):
                 'event': event,
                 'time_remaining': time_remaining_str,
             }
-            html_message = render_to_string('EventsApp/email/reminder.html', context)
+            html_message = render_to_string('email/reminder.html', context)
             
             subject = f"Lembrete: Seu evento '{event.title}' está chegando!"
             
