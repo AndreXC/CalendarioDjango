@@ -6,33 +6,29 @@
     <title>Lembrete de Evento</title>
 </head>
 
-<body style="margin: 0; padding: 0; background-color: #f4f4f7; font-family: sans-serif;">
-    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #f4f4f7;">
+<body style="margin: 0; padding: 0; background-color: #f4f4f7; font-family: 'Segoe UI', Roboto, sans-serif;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f4f4f7;">
         <tr>
-            <td align="center" style="padding: 20px 0;">
-                <table width="600" border="0" cellspacing="0" cellpadding="0"
-                    style="background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); overflow: hidden;">
+            <td align="center" style="padding: 40px 20px;">
+                <table width="600" cellpadding="0" cellspacing="0"
+                    style="background-color: #ffffff; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); overflow: hidden;">
                     <tr>
-                        <td align="center" style="padding: 20px; background-color: #3b82f6;">
-                            <h1 style="color: #ffffff; margin: 0; font-size: 24px;">Lembrete de Evento</h1>
+                        <td align="center" style="padding: 30px; background-color: #3b82f6;">
+                            <h1 style="color: #ffffff; font-size: 26px; margin: 0;">📅 Lembrete de Evento</h1>
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 30px 25px; color: #333333; font-size: 16px; line-height: 1.6;">
-                            <h2 style="color: #333333; margin-top: 0;">Seu evento está chegando!</h2>
+                        <td style="padding: 35px 30px; color: #333; font-size: 16px; line-height: 1.6;">
+                            <h2 style="margin-top: 0; font-size: 20px;">Seu evento está chegando!</h2>
                             <p>Olá, <strong>{{ event.creator_name }}</strong>,</p>
                             <p>Este é um lembrete para o seu evento <strong>{{ event.title }}</strong>, que acontecerá
                                 <strong>{{ time_remaining }}</strong>.
                             </p>
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0"
-                                style="margin: 20px 0; border-top: 1px solid #eeeeee;">
-                                <tr>
-                                    <td style="padding: 15px 0; border-bottom: 1px solid #eeeeee;"><strong
-                                            style="color: #555555;">Data Completa:</strong></td>
-                                    <td style="padding: 15px 0; border-bottom: 1px solid #eeeeee; text-align: right;">{{
-                                        event.event_date|date:"d/m/Y \à\s H:i" }}</td>
-                                </tr>
-                            </table>
+                            <div style="text-align: center; margin-top: 30px;">
+                                <a href="{{ event.link }}"
+                                    style="background-color: #3b82f6; color: white; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-size: 16px;">Ver
+                                    detalhes do evento</a>
+                            </div>
                         </td>
                     </tr>
                 </table>
