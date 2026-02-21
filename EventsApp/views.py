@@ -23,12 +23,24 @@ from django.urls import reverse_lazy
 from rest_framework import generics, permissions
 from .models import Event
 from .serializers import EventSerializer
-
+from EventsApp import serializers
+import os
+from django.conf import settings
 # --- Views que Renderizam PÁGINAS HTML ---
 
 @login_required # Protege a página: só usuários logados podem ver
 def calendar_view(request):
     """Serve a página principal do calendário (index.html)."""
+    eventos = Event.objects.filter(user=request.user).order_by('event_date')                                
+    data = serializers.serialize("json", eventos)
+
+    # Caminho da raiz do projeto (onde está o manage.py)
+    file_path = os.path.join(settings.BASE_DIR, "eventos.json")
+
+    # Salva o arquivo
+    with open(file_path, "w", encoding="utf-8") as f:
+        f.write(data)
+
     return render(request, 'Dash/index.html')
 
 class RegisterView(CreateView):
