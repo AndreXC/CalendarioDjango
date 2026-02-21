@@ -23,7 +23,7 @@ from django.urls import reverse_lazy
 from rest_framework import generics, permissions
 from .models import Event
 from .serializers import EventSerializer
-from EventsApp import serializers
+from django.core import serializers
 import os
 from django.conf import settings
 # --- Views que Renderizam PÁGINAS HTML ---
